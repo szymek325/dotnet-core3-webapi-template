@@ -8,24 +8,24 @@ using Template.WebApi.Models;
 namespace Template.WebApi.Controllers
 {
     [ApiController]
-    [ApiVersion("1.0")]
+    [ApiVersion("2.0")]
     [Route("api/v{version:apiVersion}/WeatherForecast")]
-    public class WeatherForecastController : ControllerBase
+    public class WeatherForecastControllerV2
     {
         private static readonly string[] Summaries =
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ILogger<WeatherForecastControllerV2> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastControllerV2(ILogger<WeatherForecastControllerV2> logger)
         {
             _logger = logger;
         }
 
-        [HttpGet("GetAll")]
-        public IEnumerable<WeatherForecast> Get()
+        [HttpGet]
+        public IEnumerable<WeatherForecast> GetAll()
         {
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
