@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using Template.WebApi.Configuration;
 
-namespace Template.WebApi.DataAccess
+namespace Template.WebApi.DataAccess.Context
 {
     internal class TemplateContextFactory : IDesignTimeDbContextFactory<TemplateContext>
     {

@@ -5,7 +5,7 @@ using Template.WebApi.Models;
 
 namespace Template.WebApi.DataAccess
 {
-    public static class ExampleDataFiller
+    public static class DataFiller
     {
         public static IEnumerable<Example> CreateExamplesTestData()
         {

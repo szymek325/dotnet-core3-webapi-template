@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Template.WebApi.Models;
 
-namespace Template.WebApi.DataAccess
+namespace Template.WebApi.DataAccess.Context
 {
     public class TemplateContext : DbContext
     {
@@ -21,7 +21,7 @@ namespace Template.WebApi.DataAccess
 
         private static void FillData(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Example>().HasData(ExampleDataFiller.CreateExamplesTestData());
+            modelBuilder.Entity<Example>().HasData(DataFiller.CreateExamplesTestData());
         }
     }
 }

@@ -1,4 +1,4 @@
-version: '3.4'
+version: '3.7'
 
 services:
   template.webapi:
@@ -6,6 +6,16 @@ services:
     build:
       context: .
       dockerfile: src/Template.WebApi/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_HTTPS_PORT=44386
+    ports:
+      - "62795:80"
+      - "44386:443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
 #    depends_on:
 #            - mongo
 #

@@ -1,14 +1,8 @@
 ﻿using System.Threading.Tasks;
+using Template.WebApi.DataAccess.Context;
 
-namespace Template.WebApi.DataAccess
+namespace Template.WebApi.DataAccess.Repositories
 {
-    public interface IUnitOfWork
-    {
-        IExampleRepository ExampleRepository { get; }
-        void SaveChanges();
-        Task SaveChangesAsync();
-    }
-
     public class UnitOfWork : IUnitOfWork
     {
         private readonly TemplateContext templateContext;

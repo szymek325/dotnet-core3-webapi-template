@@ -9,7 +9,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Template.WebApi.Configuration;
-using Template.WebApi.DataAccess;
+using Template.WebApi.DataAccess.Context;
+using Template.WebApi.DataAccess.Repositories;
 
 namespace Template.WebApi
 {
@@ -44,6 +45,7 @@ namespace Template.WebApi
                 migrationsOptions =>
                     migrationsOptions.MigrationsAssembly(typeof(TemplateContext).GetTypeInfo().Assembly.GetName()
                         .Name)));
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
         }
 
 
