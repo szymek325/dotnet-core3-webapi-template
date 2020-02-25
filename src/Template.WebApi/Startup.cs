@@ -1,12 +1,15 @@
+using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Template.WebApi.Configuration;
+using Template.WebApi.DataAccess;
 
 namespace Template.WebApi
 {
@@ -33,6 +36,14 @@ namespace Template.WebApi
                 });
             services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
             services.AddSwaggerGen();
+
+            var connectionString = new ConnectionString();
+            var connectionStringsSection = Configuration.GetSection(nameof(ConnectionString));
+            connectionStringsSection.Bind(connectionString);
+            services.AddDbContext<TemplateContext>(options => options.UseSqlite(connectionString.SqLite,
+                migrationsOptions =>
+                    migrationsOptions.MigrationsAssembly(typeof(TemplateContext).GetTypeInfo().Assembly.GetName()
+                        .Name)));
         }
 
 
