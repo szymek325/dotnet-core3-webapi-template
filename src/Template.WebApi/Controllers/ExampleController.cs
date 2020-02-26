@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using Template.WebApi.Configuration;
 using Template.WebApi.DataAccess.Repositories;
 using Template.WebApi.Models;
 
@@ -11,24 +13,32 @@ namespace Template.WebApi.Controllers
     [Route("api/v{version:apiVersion}/examples")]
     public class ExampleController
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IOptions<ExampleOptions> exampleOptions;
+        private readonly IUnitOfWork unitOfWork;
 
-        public ExampleController(IUnitOfWork unitOfWork)
+        public ExampleController(IOptions<ExampleOptions> exampleOptions, IUnitOfWork unitOfWork)
         {
-            _unitOfWork = unitOfWork;
+            this.exampleOptions = exampleOptions;
+            this.unitOfWork = unitOfWork;
         }
 
         [HttpGet]
         public async Task<IList<Example>> GetAll()
         {
-            return await _unitOfWork.ExampleRepository.GetAll();
+            return await unitOfWork.ExampleRepository.GetAll();
         }
 
         [HttpPost]
         public async Task Add(Example example)
         {
-            await _unitOfWork.ExampleRepository.Add(example);
-            await _unitOfWork.SaveChangesAsync();
+            await unitOfWork.ExampleRepository.Add(example);
+            await unitOfWork.SaveChangesAsync();
+        }
+
+        [HttpGet("settings")]
+        public Task<ExampleOptions> GetSettings()
+        {
+            return Task.FromResult(exampleOptions.Value);
         }
     }
 }
