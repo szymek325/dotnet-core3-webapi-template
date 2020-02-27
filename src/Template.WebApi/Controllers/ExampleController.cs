@@ -13,32 +13,32 @@ namespace Template.WebApi.Controllers
     [Route("api/v{version:apiVersion}/examples")]
     public class ExampleController
     {
-        private readonly IOptions<ExampleOptions> exampleOptions;
-        private readonly IUnitOfWork unitOfWork;
+        private readonly IOptions<ExampleOptions> _exampleOptions;
+        private readonly IUnitOfWork _unitOfWork;
 
         public ExampleController(IOptions<ExampleOptions> exampleOptions, IUnitOfWork unitOfWork)
         {
-            this.exampleOptions = exampleOptions;
-            this.unitOfWork = unitOfWork;
+            _exampleOptions = exampleOptions;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet]
         public async Task<IList<Example>> GetAll()
         {
-            return await unitOfWork.ExampleRepository.GetAll();
+            return await _unitOfWork.ExampleRepository.GetAll();
         }
 
         [HttpPost]
         public async Task Add(Example example)
         {
-            await unitOfWork.ExampleRepository.Add(example);
-            await unitOfWork.SaveChangesAsync();
+            await _unitOfWork.ExampleRepository.AddAsync(example);
+            await _unitOfWork.SaveChangesAsync();
         }
 
         [HttpGet("settings")]
         public Task<ExampleOptions> GetSettings()
         {
-            return Task.FromResult(exampleOptions.Value);
+            return Task.FromResult(_exampleOptions.Value);
         }
     }
 }

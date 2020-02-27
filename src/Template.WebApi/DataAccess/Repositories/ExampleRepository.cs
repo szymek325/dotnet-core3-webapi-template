@@ -20,7 +20,7 @@ namespace Template.WebApi.DataAccess.Repositories
             return await _templateContext.Examples.ToListAsync();
         }
 
-        public async Task Add(Example example)
+        public async Task AddAsync(Example example)
         {
             await _templateContext.Examples.AddAsync(example);
         }

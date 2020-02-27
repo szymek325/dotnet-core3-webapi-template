@@ -7,6 +7,6 @@ namespace Template.WebApi.DataAccess.Repositories
     public interface IExampleRepository
     {
         Task<IList<Example>> GetAll();
-        Task Add(Example example);
+        Task AddAsync(Example example);
     }
 }

@@ -37,9 +37,9 @@ namespace Template.WebApi
                 });
             services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
             services.AddSwaggerGen();
-            
+
             services.Configure<ExampleOptions>(Configuration.GetSection(nameof(ExampleOptions)));
-            
+
             var connectionString = new ConnectionString();
             var connectionStringsSection = Configuration.GetSection(nameof(ConnectionString));
             connectionStringsSection.Bind(connectionString);
